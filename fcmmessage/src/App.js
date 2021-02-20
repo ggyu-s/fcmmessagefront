@@ -3,12 +3,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvTmEiKvbJahqPzvdjlp-VYYKibe7zD60",
-  authDomain: "fcmtest-88df1.firebaseapp.com",
-  projectId: "fcmtest-88df1",
-  storageBucket: "fcmtest-88df1.appspot.com",
-  messagingSenderId: "427562955476",
-  appId: "1:427562955476:web:9742e53f948c03e8a94141",
+  //firebase apikey 등등...설정은 파이어베이스 참조!!!
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -51,9 +46,14 @@ function App() {
   useEffect(() => {
     messaging.onMessage((payload) => {
       console.log("Message received. ", payload);
-      navigator.serviceWorker.ready.then((registraion) => {
-        registraion.showNotification("Sadsdasdsadad", {
-          body: "sdasdsada",
+      navigator.serviceWorker
+        .register("../firebase-messaging-sw.js")
+        .then((res) => {
+          console.log(res);
+        });
+      navigator.serviceWorker.ready.then((res) => {
+        res.showNotification("성공인가?", {
+          body: "응성공이야!!",
         });
       });
     });

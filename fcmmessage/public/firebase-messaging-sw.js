@@ -1,16 +1,9 @@
-import firebase from "firebase/app";
-import "firebase/messaging";
+importScripts("https://www.gstatic.com/firebasejs/8.2.8/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/8.2.8/firebase-messaging.js");
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBvTmEiKvbJahqPzvdjlp-VYYKibe7zD60",
-  authDomain: "fcmtest-88df1.firebaseapp.com",
-  projectId: "fcmtest-88df1",
-  storageBucket: "fcmtest-88df1.appspot.com",
-  messagingSenderId: "427562955476",
-  appId: "1:427562955476:web:9742e53f948c03e8a94141",
-};
-
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp({
+  //firebase apikey 등등...설정은 파이어베이스 참조!!!
+});
 
 const messaging = firebase.messaging();
 
@@ -21,11 +14,10 @@ messaging.onBackgroundMessage((payload) => {
     payload
   );
   // Customize notification here
-  const notificationTitle = "Background Message Title";
+  const notificationTitle = payload.notification.title;
   const notificationOptions = {
-    body: "Background Message body.",
+    body: payload.notification.body,
     icon: "/firebase-logo.png",
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
-// [END messaging_on_background_message]
